@@ -6,11 +6,12 @@ import io.gatling.javaapi.core.Simulation;
 import io.gatling.javaapi.http.HttpProtocolBuilder;
 
 import static io.gatling.javaapi.core.CoreDsl.rampUsers;
+import static io.gatling.javaapi.core.OpenInjectionStep.atOnceUsers;
 import static io.gatling.javaapi.http.HttpDsl.http;
 import static io.gatling.javaapi.http.HttpDsl.status;
 
 public class MicrosHelloWorld extends Simulation {
-    HttpProtocolBuilder req= http.baseUrl("http://127.0.0.1:51048");
+    HttpProtocolBuilder req= http.baseUrl("http://192.168.49.2:30080");
 
     ScenarioBuilder myscenario= CoreDsl.scenario("micros")
             .exec(http("helloworld/hero")
@@ -30,8 +31,8 @@ public class MicrosHelloWorld extends Simulation {
 
     {
         setUp(myscenario.injectOpen(
-//                atOnceUsers(20)
-                rampUsers(100000).during(60*60*2) // Ramp up to 10,000 users over 120 seconds (2 minutes)
+                atOnceUsers(20),
+                rampUsers(300).during(60) // Ramp up to 10,000 users over 120 seconds (2 minutes)
         ).protocols(req));
     }
 }
