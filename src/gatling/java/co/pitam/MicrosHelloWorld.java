@@ -6,6 +6,7 @@ import io.gatling.javaapi.core.Simulation;
 import io.gatling.javaapi.http.HttpProtocolBuilder;
 
 import static io.gatling.javaapi.core.CoreDsl.rampUsers;
+import static io.gatling.javaapi.core.OpenInjectionStep.atOnceUsers;
 import static io.gatling.javaapi.http.HttpDsl.http;
 import static io.gatling.javaapi.http.HttpDsl.status;
 
@@ -23,8 +24,8 @@ public class MicrosHelloWorld extends Simulation {
 
     {
         setUp(myscenario.injectOpen(
-//                atOnceUsers(350),
-                rampUsers(5000).during(60) // Ramp up to 10,000 users over 120 seconds (2 minutes)
+                atOnceUsers(100),
+                rampUsers(12000).during(10) // Ramp up to 10,000 users over 120 seconds (2 minutes)
         ).protocols(req));
     }
 }
